@@ -1,0 +1,12 @@
+.drop-area {
+  border: 2px dashed #ccc;
+  padding: 40px;
+}
+.drop-area.highlight {
+  border-color: purple;
+}
+
+.drop-area:hover {
+  background-color: transparent;
+
+}
