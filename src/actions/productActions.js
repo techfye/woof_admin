@@ -20,7 +20,7 @@ export function getProducts() {
     return async dispatch => {
         try {
             dispatch({ type: 'GET_PRODUCTS_REQUEST' });
-            const { data } = await axios.get(`${API_URL}/api/products`);
+            const { data } = await axios.get(`${API_URL}/products`);
             dispatch({ type: 'GET_PRODUCTS_SUCCESS', products: data });
         } catch (error) {
             dispatch({ type: 'GET_PRODUCTS_FAILURE', error: error.message });
@@ -32,7 +32,7 @@ export function addProduct(product) {
     return async dispatch => {
         try {
             dispatch({ type: 'ADD_PRODUCT_REQUEST' });
-            const { data } = await axios.post(`${API_URL}/api/products/create`, product,
+            const { data } = await axios.post(`${API_URL}/products/create`, product,
                 {
                     headers: {
                         'x-auth-token': `${localStorage.getItem('token')}`,
@@ -50,7 +50,7 @@ export function deleteProduct(id) {
     return async dispatch => {
         try {
             dispatch({ type: 'DELETE_PRODUCT_REQUEST' });
-            await axios.delete(`${API_URL}/api/products/delete/${id}`,
+            await axios.delete(`${API_URL}/products/delete/${id}`,
                 { headers: { 'x-auth-token': `${localStorage.getItem('token')}` } });
             dispatch({ type: 'DELETE_PRODUCT_SUCCESS', id });
         } catch (error) {
@@ -63,7 +63,7 @@ export function updateProduct(id, product) {
     return async dispatch => {
         try {
             dispatch({ type: 'UPDATE_PRODUCT_REQUEST' });
-            const { data } = await axios.put(`${API_URL}/api/products/update/${id}`, product,
+            const { data } = await axios.put(`${API_URL}/products/update/${id}`, product,
                 { headers: { 'x-auth-token': `${localStorage.getItem('token')}` } });
             dispatch({ type: 'UPDATE_PRODUCT_SUCCESS', product: data });
         } catch (error) {

@@ -5,7 +5,7 @@ export const getCategories = () => {
     return async (dispatch) => {
         try {
             dispatch({ type: 'GET_CATEGORIES_REQUEST' });
-            const { data } = await axios.get(`${API_URL}/api/category`);
+            const { data } = await axios.get(`${API_URL}/category`);
             dispatch({ type: 'GET_CATEGORIES_SUCCESS', categories: data });
             dispatch({ type: 'GET_CATEGORIES_FAILURE', error: null });
 
@@ -19,7 +19,7 @@ export const addCategory = (category) => {
     return async (dispatch) => {
         try {
             dispatch({ type: 'ADD_CATEGORY_REQUEST' });
-            const { data } = await axios.post(`${API_URL}/api/category`, category,
+            const { data } = await axios.post(`${API_URL}/category`, category,
                 { headers: { 
                         'x-auth-token': `${localStorage.getItem('token')}`,
                         'Content-Type': 'multipart/form-data'
@@ -35,7 +35,7 @@ export const deleteCategory = (id) => {
     return async (dispatch) => {
         try {
             dispatch({ type: 'DELETE_CATEGORY_REQUEST' });
-            await axios.delete(`${API_URL}/api/category/${id}`,
+            await axios.delete(`${API_URL}/category/${id}`,
                 { headers: { 'x-auth-token': `${localStorage.getItem('token')}` } });
             dispatch({ type: 'DELETE_CATEGORY_SUCCESS', id });
         }
@@ -49,7 +49,7 @@ export const updateCategory = (id, category) => {
     return async (dispatch) => {
         try {
             dispatch({ type: 'UPDATE_CATEGORY_REQUEST' });
-            const { data } = await axios.put(`${API_URL}/api/category/${id}`, category,
+            const { data } = await axios.put(`${API_URL}/category/${id}`, category,
                 { headers: { 'x-auth-token': `${localStorage.getItem('token')}` } });
             dispatch({ type: 'UPDATE_CATEGORY_SUCCESS', category: data });
         }
