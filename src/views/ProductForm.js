@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import ImageField from '../components/InputFields/ImageField';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const { addProduct } = require('../actions/productActions');
+const { addProduct, updateProduct } = require('../actions/productActions');
 const { countries } = require('../data/countries');
 
 const ProductForm = (props) => {
@@ -124,6 +124,43 @@ const ProductForm = (props) => {
         redirect('/products');
     }
 
+    const handleEditProduct = (e) => {
+        const product = products.find(product => product.id === Number(id));
+        e.preventDefault();
+        const data = new FormData();
+        data.append('name', Product.name);
+        data.append('category', Product.category);
+        data.append('description', Product.description);
+        data.append('information', Product.information);
+        data.append('skuNumber', Product.skuNumber);
+
+        for (let i = 0; i < Product.tags.length; i++) {
+            data.append('tags', Product.tags[i]);
+        }
+
+        data.append('price', Product.price);
+        data.append('reviews', Product.reviews);
+        data.append('stock', Product.stock);
+        data.append('itemWeight', Product.itemWeight);
+        data.append('menufacturer', Product.menufacturer);
+        data.append('countryOfOrigin', Product.countryOfOrigin);
+        data.append('itemModelNumber', Product.itemModelNumber);
+        data.append('brandName', Product.brandName);
+        data.append('directions', Product.directions);
+        data.append('size', Product.size);
+        data.append('careInstructions', Product.careInstructions);
+        data.append('specificUses', Product.specificUses);
+        data.append('specialIngredients', Product.specialIngredients);
+        data.append('breedRecommendation', Product.breedRecommendation);
+        data.append('modalName', Product.modalName);
+        for (let i = 0; i < Product.photos.length; i++) {
+            data.append('photos', Product.photos[i]);
+        }
+
+        updateProduct(product._id, data)
+        redirect('/products');
+    }
+
     const handleFileChange = (e) => {
         Product.photos = e.target.files;
     }
@@ -176,7 +213,7 @@ const ProductForm = (props) => {
                                         <h5 className="mb-0">{FormName}</h5>
                                     </div>
                                     <div className="card-body">
-                                        <form encType="multipart/form-data" onSubmit={handleAddProduct} method='POST'>
+                                        <form encType="multipart/form-data" method='POST'>
                                             <div className='row'>
                                                 <div className="col-md-4">
                                                     <div className="mb-3">
@@ -312,9 +349,9 @@ const ProductForm = (props) => {
                                                 </div>
                                             </div>
                                             {
-                                                Editable === 'true' ? <button type="submit" className="btn btn-primary">
+                                                Editable === 'true' ? <button type="submit" onClick={handleEditProduct} className="btn btn-primary">
                                                     Update Product
-                                                </button> : <button type="submit" className="btn btn-primary">
+                                                </button> : <button type="submit" onClick={handleAddProduct} className="btn btn-primary">
                                                     Save
                                                 </button>
                                             }
